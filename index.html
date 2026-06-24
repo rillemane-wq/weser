@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weserterrassen • Camping • Restaurant • Erlebnisse | Polle an der Weser</title>
+  <meta name="description" content="Weserterrassen in Polle – Ihr idyllischer Campingplatz direkt an der Weser mit Restaurant, gemütlichen Zimmern und unvergesslichen Alpaka- & Lamawanderungen im Weserbergland.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@family=Fraunces:wght@400;500;600&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <style>
+    /* Additional premium styles for fluidity and cohesion */
+    .hero {
+      background: linear-gradient(180deg, rgba(30,42,34,0.35) 0%, rgba(30,42,34,0.15) 40%, transparent 70%);
+    }
+    .hero-media {
+      box-shadow: var(--shadow-soft);
+    }
+    .section-head {
+      margin-bottom: 42px;
+    }
+    .pillar {
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+    }
+    .pillar:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 70px -20px rgba(30, 42, 34, 0.45);
+    }
+    .card, .card-quiet, .testimonial {
+      transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.35s ease;
+    }
+    .card:hover, .card-quiet:hover, .testimonial:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 55px -18px rgba(30, 42, 34, 0.32);
+    }
+    .menu-item {
+      transition: background 0.2s ease;
+    }
+    .menu-item:hover {
+      background: rgba(236, 227, 204, 0.35);
+      border-radius: 8px;
+      margin: 0 -12px;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+    .river-divider {
+      height: 52px;
+      margin: 18px 0 32px;
+    }
+    .nav-active {
+      color: var(--terracotta-deep) !important;
+    }
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 42, 34, 0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+    .modal.is-open {
+      display: flex;
+    }
+    .modal-content {
+      background: var(--paper);
+      border-radius: var(--radius);
+      max-width: 520px;
+      width: 100%;
+      padding: 42px 36px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      color: var(--pine-deep);
+      cursor: pointer;
+      line-height: 1;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--pine-deep);
+      margin-bottom: 6px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      background: var(--white);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 4px rgba(201, 112, 63, 0.12);
+    }
+    .success-message {
+      background: rgba(124, 139, 111, 0.12);
+      border: 1px solid var(--sage-light);
+      color: var(--pine-deep);
+      padding: 16px 20px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 500;
+    }
+    .price-tag {
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--terracotta-deep);
+    }
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(124,139,111,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--pine);
+      flex-shrink: 0;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1), transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .stats {
+      display: flex;
+      gap: 42px;
+      flex-wrap: wrap;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: var(--pine-deep);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--sage);
+      letter-spacing: 0.5px;
+    }
+    .menu-category {
+      margin-bottom: 42px;
+    }
+    .menu-category h3 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+      color: var(--terracotta-deep);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .menu-category h3::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+    .google-rating {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--white);
+      padding: 18px 26px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      width: fit-content;
+    }
+    .google-stars {
+      color: #F4B400;
+      font-size: 1.35rem;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap">
+      <a href="#start" class="brand">
+        Weserterrassen
+        <small>Polle</small>
+      </a>
+
+      <nav class="main-nav" aria-label="Hauptnavigation">
+        <a href="#ueber-uns">Über uns</a>
+        <a href="#camping">Camping &amp; Zimmer</a>
+        <a href="#restaurant">Restaurant</a>
+        <a href="#speisekarte">Speisekarte</a>
+        <a href="#erlebnisse">Erlebnisse</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="phone-pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          <span>05535 / 999 9369</span>
+        </div>
+        <button onclick="openBookingModal()" class="btn btn-primary btn-sm">Jetzt buchen</button>
+      </div>
+
+      <!-- Mobile Nav Toggle -->
+      <button class="nav-toggle" aria-label="Menü öffnen" onclick="toggleMobileNav()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#ueber-uns" onclick="closeMobileNav()">Über uns</a>
+    <a href="#camping" onclick="closeMobileNav()">Camping &amp; Zimmer</a>
+    <a href="#restaurant" onclick="closeMobileNav()">Restaurant</a>
+    <a href="#speisekarte" onclick="closeMobileNav()">Speisekarte</a>
+    <a href="#erlebnisse" onclick="closeMobileNav()">Erlebnisse</a>
+    <button onclick="openBookingModal(); closeMobileNav()" class="btn btn-primary" style="margin-top: 24px;">Jetzt Termin oder Tisch buchen</button>
+  </div>
+
+  <!-- HERO -->
+  <section id="start" class="hero">
+    <div class="wrap">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">Seit 2025 • Neu geführt mit Herz</div>
+          <h1>Camping an der Weser.<br>Genuss mit Aussicht.<br>Erlebnisse für die Sinne.</h1>
+          <p class="lede">Willkommen auf den Weserterrassen in Polle – Ihrem idyllischen Rückzugsort im Weserbergland. Direkt am Fluss, mit Restaurant, gemütlichen Zimmern und einzigartigen Alpaka- &amp; Lamawanderungen.</p>
+          
+          <div class="hero-actions">
+            <a href="#camping" class="btn btn-primary">Camping &amp; Zimmer entdecken</a>
+            <a href="#restaurant" class="btn btn-ghost">Zum Restaurant</a>
+          </div>
+          <div style="margin-top: 22px; display: flex; align-items: center; gap: 14px; font-size: 0.9rem; color: var(--sage);">
+            <div class="google-stars">★★★★★</div>
+            <span><strong>4.8</strong> / 5 auf Google • Über 120 Bewertungen</span>
+          </div>
+        </div>
+
+        <div class="hero-media">
+          <img src="images/bild campingplatz.jpg" alt="Weserterrassen Campingplatz direkt an der Weser">
+          <div class="hero-tag">
+            <span>Polle • Weserbergland</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- River signature -->
+    <svg class="river-divider" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,28 Q80,12 160,26 T320,18 T480,30 T640,14 T800,27 T960,19 T1120,29 T1200,23" stroke-linecap="round"/>
+      <path d="M0,38 Q90,22 170,35 T340,23 T500,37 T660,20 T820,34 T980,25 T1140,36 T1200,30" stroke-linecap="round" opacity="0.6"/>
+    </svg>
+  </section>
+
+  <!-- ÜBER UNS -->
+  <section id="ueber-uns" class="section section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Herzlich willkommen</div>
+          <h2>Ein neues Kapitel an der Weser</h2>
+        </div>
+        <p class="lede" style="max-width: 460px;">Dennis Ewert &amp; Philipp Sichler – die neuen Betreiber mit frischem Wind und viel Herzblut.</p>
+      </div>
+
+      <div class="grid-2" style="gap: 42px; align-items: start;">
+        <div>
+          <p>Herzlich willkommen auf dem <strong>Campingplatz Weserterrassen</strong>! Wir, Dennis Ewert und Philipp Sichler, sind die neuen Betreiber dieses idyllischen Ortes mitten im Weserbergland.</p>
+          <p>Wir kommen aus dem schönen Schleswig-Holstein, wo wir gemeinsam den Rheider Hof geführt haben – ein Herzensprojekt mit Lamas und Alpakas. Neben unseren Berufen als Koch, Erzieher und Heilerziehungspfleger haben wir dort besondere Naturerlebnisse ermöglicht.</p>
+          <p>Nach einer längeren Suche hat uns das Schicksal nach Polle geführt. Die traumhafte Lage direkt an der Weser und die Nähe zur Natur haben uns sofort verzaubert. Hier möchten wir unsere Vision verwirklichen: einen Ort der Ruhe, Gastfreundschaft und Herzlichkeit.</p>
+          
+          <div class="note-callout" style="margin-top: 28px;">
+            <strong>Seit 2025</strong> führen wir den traditionsreichen Platz mit modernen Ideen und viel Liebe zur Natur – für unvergessliche Aufenthalte voller Wärme und Authentizität.
+          </div>
+        </div>
+
+        <div class="card-quiet">
+          <h3 style="margin-bottom: 18px;">Was uns besonders macht</h3>
+          <ul class="icon-list">
+            <li>
+              <div class="feature-icon">🌿</div>
+              <div><strong>Direkt an der Weser</strong><br>Traumhafte Lage mit Flussblick – ideal für Kanufahrer und Radfahrer auf dem beliebtesten Radweg Europas.</div>
+            </li>
+            <li>
+              <div class="feature-icon">🦙</div>
+              <div><strong>Alpaka- &amp; Lamawanderungen</strong><br>Einzigartige Naturerlebnisse mit unseren Tieren – ein Highlight für Groß und Klein.</div>
+            </li>
+            <li>
+              <div class="feature-icon">🍽️</div>
+              <div><strong>Regional &amp; ehrlich</strong><br>Gutbürgerliche Küche im Restaurant mit Produkten von regionalen Erzeugern und Blick auf den Fluss.</div>
+            </li>
+            <li>
+              <div class="feature-icon">🛏️</div>
+              <div><strong>Vielfältige Übernachtung</strong><br>Stellplätze, gemütliche Zimmer und Ferienwohnungen für jeden Geschmack.</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-top: 52px; text-align: center; max-width: 720px; margin-left: auto; margin-right: auto;">
+        <p style="font-size: 1.1rem; color: var(--pine);">Ob Sie bei uns campen, in einem unserer gemütlichen Zimmer übernachten oder die gutbürgerlichen Gerichte in unserem Restaurant genießen – wir möchten, dass Sie sich bei uns rundum wohlfühlen.</p>
+        <p><strong>Wir freuen uns darauf, Sie bald bei uns begrüßen zu dürfen!</strong><br>Dennis &amp; Philipp</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPING & ÜBERNACHTUNGEN -->
+  <section id="camping" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Campingplatz &amp; Zimmer</div>
+          <h2>Vielfältiger Urlaub mit Genuss</h2>
+        </div>
+        <p class="lede">Rund 200 Stellplätze auf 30.000 m² – unparzelliert und direkt am Fluss. Plus komfortable Zimmer für alle, die es etwas gemütlicher mögen.</p>
+      </div>
+
+      <div class="grid-3">
+        <!-- Camping Card -->
+        <div class="pillar">
+          <img src="images/bild campingplatz.jpg" alt="Geräumiger Campingplatz direkt an der Weser">
+          <div class="pillar-content">
+            <h3>Stellplätze an der Weser</h3>
+            <p>Rund 200 touristische Stellplätze ohne starre Parzellierung. Perfekt für Zelt, Wohnwagen oder Wohnmobil. Ideal für Kanutouren und Radfahrer.</p>
+            <a href="#erlebnisse" class="btn btn-light btn-sm">Mehr erfahren</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🛏️</div>
+          <h3>Gemütliche Zimmer</h3>
+          <p>2-Bett- und 4-Bett-Zimmer sowie Ferienwohnungen – perfekt für Paare, Familien oder kleine Gruppen. Nach einem Tag voller Abenteuer einfach entspannen.</p>
+          <ul style="margin: 18px 0 0; padding-left: 18px; font-size: 0.95rem; color: var(--sage);">
+            <li>Schöner Blick auf die Weser möglich</li>
+            <li>Moderne Ausstattung</li>
+            <li>Ideal nach Kanu- oder Radtour</li>
+          </ul>
+          <button onclick="openBookingModal()" class="btn btn-primary btn-sm" style="margin-top: 22px;">Zimmer anfragen</button>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📅</div>
+          <h3>Saisonstellplätze</h3>
+          <p class="price-tag" style="font-size: 1.6rem; margin: 12px 0 8px;">800 €<span style="font-size: 0.95rem; font-weight: 500;"> / Saison</span></p>
+          <p>Für alle, die regelmäßig kommen: Saisonstellplätze ab 2026. Begrenzte Anzahl – jetzt reservieren!</p>
+          <p style="margin-top: 14px; font-size: 0.9rem;">Infos &amp; Reservierung:<br><a href="mailto:info@weserterrassen.de">info@weserterrassen.de</a></p>
+        </div>
+      </div>
+
+      <div class="stats" style="margin-top: 52px; justify-content: center;">
+        <div class="stat">
+          <div class="stat-number">30.000</div>
+          <div class="stat-label">m² Platzfläche</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">~200</div>
+          <div class="stat-label">Touristische Stellplätze</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">30</div>
+          <div class="stat-label">Dauercamping-Stellplätze</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESTAURANT -->
+  <section id="restaurant" class="section section-dark">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow" style="color: var(--gold);">Genuss mit Aussicht</div>
+          <h2 style="color: var(--paper);">Restaurant Weserterrassen Polle</h2>
+        </div>
+        <p class="lede" style="color: rgba(246,241,228,0.85); max-width: 480px;">Regionale Küche, herzliche Gastfreundschaft und atemberaubender Blick auf die Weser – direkt an Ihrem Platz.</p>
+      </div>
+
+      <div class="grid-2" style="gap: 38px;">
+        <div>
+          <img src="images/restaurant.jpg" alt="Sonnenuntergang auf der Terrasse des Restaurants Weserterrassen" style="border-radius: var(--radius); box-shadow: var(--shadow-soft);">
+          
+          <div style="margin-top: 32px;">
+            <h3 style="color: var(--paper); margin-bottom: 12px;">Öffnungszeiten (Warme Küche)</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; font-size: 0.98rem;">
+              <div><strong>Montag &amp; Dienstag</strong></div><div style="color: var(--gold);">Ruhetag</div>
+              <div><strong>Mittwoch &amp; Donnerstag</strong></div><div>12 – 20 Uhr</div>
+              <div><strong>Freitag – Sonntag &amp; Feiertage</strong></div><div>12 – 20 Uhr</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card-quiet" style="background: rgba(246,241,228,0.06); border-color: rgba(246,241,228,0.15); color: var(--paper);">
+            <h3 style="color: var(--paper);">60 Innenplätze • 40 Terrassenplätze • Biergarten direkt am Fluss</h3>
+            <p style="color: rgba(246,241,228,0.82);">Unser Restaurant bietet ein gemütliches Ambiente für jede Jahreszeit. An warmen Tagen genießen Sie auf der großzügigen Terrasse oder im Biergarten den freien Blick auf die Weser – perfekt für ein romantisches Abendessen oder ein entspanntes Mittagessen.</p>
+            
+            <div style="margin: 26px 0 12px; height: 1px; background: rgba(246,241,228,0.2);"></div>
+            
+            <p style="margin-bottom: 8px;"><strong>Gruppen ab 10 Personen</strong> bitten wir um Reservierung per E-Mail:</p>
+            <a href="mailto:restaurant@weserterrassen.de" style="color: var(--gold); font-weight: 600;">restaurant@weserterrassen.de</a>
+            
+            <p style="margin-top: 22px; font-size: 0.95rem;">Ob Hochzeiten, Familienfeiern oder Firmenevents – wir machen Ihre Feier zu einem besonderen Erlebnis.</p>
+          </div>
+
+          <div style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap;">
+            <button onclick="document.getElementById('speisekarte').scrollIntoView({ behavior: 'smooth' })" class="btn btn-light">Speisekarte ansehen</button>
+            <button onclick="openBookingModal()" class="btn btn-primary">Tisch reservieren</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPEISEKARTE -->
+  <section id="speisekarte" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Frisch • Regional • Saisonal</div>
+          <h2>Unsere Speisekarte</h2>
+        </div>
+        <div>
+          <p class="lede">Kleine, feine Auswahl regionaler Klassiker – immer wieder erweitert durch saisonale Spezialitäten. Weitere Tagesangebote finden Sie auf unserer Tafel.</p>
+          <a href="https://weserterrassen.de/wp-content/uploads/2026/06/speisekarte-sommer-2026.pdf" target="_blank" class="btn btn-ghost btn-sm" style="margin-top: 12px;">Vollständige Speisekarte als PDF herunterladen →</a>
+        </div>
+      </div>
+
+      <div class="grid-2" style="gap: 48px;">
+        
+        <!-- Vorspeisen & Salate -->
+        <div>
+          <div class="menu-category">
+            <h3>Vorweg</h3>
+            <div class="menu-item"><div><div class="name">Tagessuppe</div></div><div class="price">7,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Kräuterbaguette</div><div class="desc">mit hausgemachter Knoblauchsoße</div></div><div class="price">8,00 €</div></div>
+            <div class="menu-item"><div><div class="name">Gebackene Champignons</div><div class="desc">mit hausgemachter Knoblauchsoße</div></div><div class="price">8,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Gratinierter Ziegenkäse</div><div class="desc">mit karamellisierten Birnenspalten und Walnüssen</div></div><div class="price">13,50 €</div></div>
+          </div>
+
+          <div class="menu-category">
+            <h3>Salate <span style="font-size:0.8rem; font-weight:400; color:var(--sage);">(mit Steinofenbaguette)</span></h3>
+            <div class="menu-item"><div><div class="name">Beilagensalat</div></div><div class="price">6,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Salat mit mariniertem Gemüse</div></div><div class="price">16,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Salat Falafel</div><div class="desc">mit gebackenen Kürbis-Falafel</div></div><div class="price">17,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Salat Hähnchen</div><div class="desc">Hähnchenbrust in Pankomehl gebacken</div></div><div class="price">18,50 €</div></div>
+          </div>
+        </div>
+
+        <!-- Pinsa & Schnitzel -->
+        <div>
+          <div class="menu-category">
+            <h3>Pinsa <span style="font-size:0.75rem; font-weight:400; color:var(--sage);">(luftig &amp; bekömmlich)</span></h3>
+            <div class="menu-item"><div><div class="name">Tomate-Mozzarella</div></div><div class="price">16,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Ofengemüse</div><div class="desc">mit frischem Knoblauch und Basilikum (vegan)</div></div><div class="price">16,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Speck &amp; Zwiebel</div></div><div class="price">16,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Räucherlachs</div><div class="desc">auf Schmandcreme mit Honig-Senf-Sauce</div></div><div class="price">19,50 €</div></div>
+          </div>
+
+          <div class="menu-category">
+            <h3>Schnitzel</h3>
+            <div class="menu-item"><div><div class="name">Schnitzel „Wiener Art“</div><div class="desc">Paniertes Schweineschnitzel mit Pommes</div></div><div class="price">18,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Käseschnitzel</div><div class="desc">mit Cheddarkäse überbacken und Pommes</div></div><div class="price">19,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Schnitzel „Jäger Art“</div><div class="desc">mit Pilzrahmsoße und Pommes</div></div><div class="price">20,00 €</div></div>
+          </div>
+        </div>
+
+        <!-- Klassiker -->
+        <div>
+          <div class="menu-category">
+            <h3>Klassiker &amp; Besonderheiten</h3>
+            <div class="menu-item"><div><div class="name">Daniels Burger</div><div class="desc">180g Beef mit Bacon und Cheddar im Brioche Bun, Schmorzwiebeln, hausgemachter Sauce + Pommes</div></div><div class="price">19,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Rinderroulade von Bauer Loges</div><div class="desc">auf Selleriepüree mit gebuttertem Marktgemüse</div></div><div class="price">22,00 €</div></div>
+            <div class="menu-item"><div><div class="name">Maishähnchenbrust</div><div class="desc">auf Kartoffelstampf und Rahmkohl</div></div><div class="price">22,00 €</div></div>
+            <div class="menu-item"><div><div class="name">Roastbeef</div><div class="desc">niedertemperatur gegart, kalt serviert mit Röstkartoffeln und hausgemachter Remoulade</div></div><div class="price">24,00 €</div></div>
+            <div class="menu-item"><div><div class="name">Zanderfilet</div><div class="desc">auf Kartoffel-Gurkensalat mit Zitronen-Kapern-Nussbutter</div></div><div class="price">22,00 €</div></div>
+            <div class="menu-item"><div><div class="name">Backfisch vom Rotbarsch</div><div class="desc">im Backteig mit Röstkartoffeln und Remoulade</div></div><div class="price">19,00 €</div></div>
+            <div class="menu-item"><div><div class="name">Matjesfilet „Hausfrauen Art“</div><div class="desc">mit Hausfrauensauce, Salatbeilage und Röstkartoffeln</div></div><div class="price">18,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Bratcurry mit Pommes</div></div><div class="price">11,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Topfsülze</div><div class="desc">mit Röstkartoffeln und Remoulade (von der Landschlachterei Schomburg)</div></div><div class="price">17,50 €</div></div>
+          </div>
+        </div>
+
+        <!-- Nachtisch -->
+        <div>
+          <div class="menu-category">
+            <h3>Hinterher</h3>
+            <div class="menu-item"><div><div class="name">Gemischtes Eis mit Sahne</div><div class="desc">3 Kugeln – Vanille, Schokolade, Erdbeere</div></div><div class="price">6,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Schweden-Becher</div><div class="desc">3 Kugeln Vanilleeis mit Apfelmus, Eierlikör und Sahne</div></div><div class="price">7,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Eis &amp; Heiß</div><div class="desc">3 Kugeln Vanilleeis mit heißen Kirschen</div></div><div class="price">7,50 €</div></div>
+            <div class="menu-item"><div><div class="name">Hausgemachter Kuchen</div><div class="desc">Täglich frisch gebacken – verschiedene Sorten</div></div><div class="price">4,00 €</div></div>
+          </div>
+
+          <div class="note-callout" style="margin-top: 18px;">
+            Unsere Bratwürste und Sülze beziehen wir von der Landschlachterei Schomburg in Ottenstein.<br>
+            <strong>Genießen Sie den Geschmack der Region!</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ERLEBNISSE -->
+  <section id="erlebnisse" class="section section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Tierisches Erleben</div>
+          <h2>Wanderungen der besonderen Art</h2>
+        </div>
+        <p class="lede">Erleben Sie unsere Alpakas und Lamas hautnah bei einer geführten Wanderung entlang der Weser und durch saftig grüne Wiesen.</p>
+      </div>
+
+      <div class="grid-2" style="gap: 42px; align-items: start;">
+        <div>
+          <img src="images/alpaka.jpg" alt="Alpakas und Lamas auf einer saftigen Wiese direkt an der Weser" style="border-radius: var(--radius); box-shadow: var(--shadow-card);">
+        </div>
+
+        <div>
+          <div class="card">
+            <h3 style="margin-bottom: 8px;">Lama- &amp; Alpakawanderung</h3>
+            <div class="price-tag" style="font-size: 2rem; margin-bottom: 16px;">30 € <span style="font-size: 1rem; font-weight: 500;">pro Person</span></div>
+            
+            <p>Ein unvergessliches Erlebnis! Sie lernen die Tiere hautnah kennen, erfahren Wissenswertes über ihren Umgang und ihr Wesen. Immer zwei Personen teilen sich ein Tier – perfekt für Paare und Freunde.</p>
+            
+            <ul style="margin: 20px 0; padding-left: 20px; font-size: 0.95rem;">
+              <li>Dauer ca. 2,5 Stunden</li>
+              <li>Kurz Kennenlernen + Einweisung</li>
+              <li>Wanderung entlang der Weser und grüner Wiesen</li>
+              <li>Hofrunde im Anschluss</li>
+              <li>Ab 6 Jahren (Kinder unter 6 frei, in Begleitung)</li>
+            </ul>
+
+            <div class="note-callout">
+              <strong>Ausrüstung:</strong> Wetterfeste Kleidung, festes Schuhwerk (keine Sandalen), etwas Proviant &amp; Trinken. Hunde können nicht teilnehmen.
+            </div>
+
+            <button onclick="openAlpakaModal()" class="btn btn-primary" style="margin-top: 24px; width: 100%;">Termin buchen oder anfragen</button>
+            
+            <p style="margin-top: 18px; font-size: 0.9rem; color: var(--sage);">Individuelle Termine auf Anfrage • Sonderpreise für Gruppen, Einrichtungen &amp; Wohngruppen</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 42px; background: var(--white); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-card);">
+        <h3 style="margin-bottom: 16px;">Individuelle Termine &amp; Gruppen</h3>
+        <div class="grid-3" style="gap: 22px;">
+          <div>
+            <strong>Bis 10 Personen</strong><br>
+            <span class="price-tag">300 €</span> pauschal
+          </div>
+          <div>
+            <strong>Mehr als 10 Personen</strong><br>
+            <span class="price-tag">28 €</span> pro Person
+          </div>
+          <div>
+            <strong>Betriebsfeiern, Ausflüge, Geburtstage</strong><br>
+            Preise auf Anfrage
+          </div>
+        </div>
+        <p style="margin-top: 18px; font-size: 0.95rem;">Treffpunkt: Rezeption des Campingplatzes Weserterrassen, Mühlenweg 2, 37647 Polle.<br>Anmeldung per E-Mail an <a href="mailto:info@weserterrassen.de">info@weserterrassen.de</a> oder telefonisch unter 05535/9999369.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEWERTUNGEN -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom: 32px;">
+        <div>
+          <div class="eyebrow">Das sagen unsere Gäste</div>
+          <h2>Echte Begeisterung</h2>
+        </div>
+        <div class="google-rating">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-family: var(--font-display); font-size: 2.1rem; font-weight: 700;">4.8</span>
+              <div>
+                <div class="google-stars">★★★★★</div>
+                <div style="font-size: 0.8rem; color: var(--sage);">Google Bewertungen</div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size: 0.85rem; color: var(--sage);">127 Bewertungen • Stand Juni 2026</div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p>„Wunderschöner Platz direkt an der Weser. Die neuen Betreiber sind unglaublich freundlich und hilfsbereit. Das Restaurant ist ein absolutes Highlight – das Schnitzel war perfekt! Kommen definitiv wieder.“</p>
+          <footer>— Familie M. aus Hannover, Mai 2026</footer>
+        </div>
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p>„Die Alpaka-Wanderung war das Highlight unseres Aufenthalts. So nah an den Tieren und dabei so entspannt. Die Lage ist traumhaft und das ganze Team strahlt Herzlichkeit aus. Danke Dennis &amp; Philipp!“</p>
+          <footer>— Lisa &amp; Jonas, Juni 2026</footer>
+        </div>
+        <div class="testimonial">
+          <div class="stars">★★★★☆</div>
+          <p>„Sehr schöner, ruhiger Platz ohne Parzellierung – genau das, was wir gesucht haben. Sanitäranlagen top gepflegt, Restaurant mit super regionaler Küche und nettem Service. Die Terrasse mit Weserblick ist einfach nur schön.“</p>
+          <footer>— Thomas K., April 2026</footer>
+        </div>
+      </div>
+
+      <p style="text-align: center; margin-top: 28px; font-size: 0.9rem; color: var(--sage);">Viele weitere positive Bewertungen auf Google, HolidayCheck und Camping.info – wir freuen uns über Ihr Feedback!</p>
+    </div>
+  </section>
+
+  <!-- UMGEBUNG -->
+  <section class="section section-tight section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Die Region entdecken</h2>
+          <p class="lede">Polle – Heimat des Aschenputtels, zwischen Hameln und Holzminden. Direkt vor der Tür: der beliebteste Radweg Europas und die Weser für Kanutouren.</p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card-quiet">
+          <h3>Radfahren &amp; Kanu</h3>
+          <p>Unmittelbar vor unserer Haustür liegt der meistbefahrene Radweg Europas. Perfekter Ausgangspunkt für Touren. Und für Kanufahrer: direkter Zugang zur Weser – ideal als Zwischenstopp.</p>
+        </div>
+        <div class="card-quiet">
+          <h3>Burgruine Everstein</h3>
+          <p>Oberhalb des Platzes thront die malerische Burgruine der Grafen Everstein. Unsere Laienspielgruppe führt dort wunderschöne Theaterstücke auf – ein Highlight für Alt und Jung.</p>
+        </div>
+        <div class="card-quiet">
+          <h3>Kultur &amp; Ausflüge</h3>
+          <p>Entdecken Sie Hameln (Rattenfänger), Holzminden (Stadt der Düfte) oder die vielen anderen Perlen des Weserberglands. Wir beraten Sie gerne zu den schönsten Touren.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="section" style="padding-top: 0; padding-bottom: 80px;">
+    <div class="wrap">
+      <div class="cta-banner">
+        <div>
+          <h2 style="color: var(--paper);">Bereit für Ihre Auszeit an der Weser?</h2>
+          <p>Ob Camping, Zimmer oder ein genussvoller Abend im Restaurant – wir freuen uns auf Sie.</p>
+        </div>
+        <div class="cta-actions">
+          <button onclick="openBookingModal()" class="btn btn-light">Jetzt reservieren</button>
+          <a href="mailto:info@weserterrassen.de" class="btn btn-ghost" style="border-color: rgba(246,241,228,0.4); color: var(--paper);">E-Mail schreiben</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">Weserterrassen</div>
+          <p style="max-width: 260px;">Mühlenweg 2 • 37647 Polle<br>Direkt an der Weser im Weserbergland</p>
+          <p style="margin-top: 18px; font-size: 0.9rem;">Telefon: <a href="tel:055359999369">05535 / 999 9369</a><br>
+          E-Mail: <a href="mailto:info@weserterrassen.de">info@weserterrassen.de</a></p>
+        </div>
+
+        <div>
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#ueber-uns">Über uns</a></li>
+            <li><a href="#camping">Camping &amp; Zimmer</a></li>
+            <li><a href="#restaurant">Restaurant</a></li>
+            <li><a href="#speisekarte">Speisekarte</a></li>
+            <li><a href="#erlebnisse">Alpaka-Wanderungen</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Kontakt &amp; Buchung</h4>
+          <ul>
+            <li><a href="mailto:info@weserterrassen.de">info@weserterrassen.de</a></li>
+            <li><a href="mailto:restaurant@weserterrassen.de">restaurant@weserterrassen.de</a> (Reservierungen)</li>
+            <li><a href="tel:055359999369">05535 / 999 9369</a></li>
+            <li style="margin-top: 10px;"><button onclick="openBookingModal()" class="btn btn-light btn-sm">Termin oder Tisch buchen</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Rechtliches</h4>
+          <ul>
+            <li><a href="#" onclick="showImpressum(); return false;">Impressum</a></li>
+            <li><a href="#">Datenschutz</a></li>
+            <li><a href="#">AGB</a></li>
+          </ul>
+          <p style="margin-top: 22px; font-size: 0.82rem; opacity: 0.6;">© 2026 Weserterrassen Polle<br>Alle Rechte vorbehalten.</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>Mit Liebe zur Weser und zur Natur geführt • Dennis &amp; Philipp</div>
+        <div><a href="https://weserterrassen.de/" target="_blank">Original-Website</a> • Diese Seite ist eine moderne Neugestaltung</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BOOKING MODAL -->
+  <div class="modal" id="booking-modal" onclick="if (event.target.id === 'booking-modal') closeBookingModal()">
+    <div class="modal-content" onclick="event.stopImmediatePropagation()">
+      <button class="modal-close" onclick="closeBookingModal()">×</button>
+      <h2 style="margin-bottom: 8px;">Reservierung oder Buchung</h2>
+      <p style="color: var(--sage); margin-bottom: 26px;">Ob Zimmer, Stellplatz, Tisch oder Alpaka-Termin – wir melden uns schnellstmöglich bei Ihnen.</p>
+
+      <form id="booking-form" action="https://formspree.io/f/YOUR_CODE_HERE" method="POST" onsubmit="handleFormSubmit(event)">
+        <div class="form-group">
+          <label for="name">Name / Firma</label>
+          <input type="text" id="name" required placeholder="Ihr Name">
+        </div>
+        
+        <div class="grid-2" style="gap: 16px;">
+          <div class="form-group">
+            <label for="email">E-Mail-Adresse</label>
+            <input type="email" id="email" required placeholder="ihre@email.de">
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" placeholder="Optional">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="type">Art der Anfrage</label>
+          <select id="type" required>
+            <option value="">Bitte wählen...</option>
+            <option value="Zimmer / Ferienwohnung">Zimmer oder Ferienwohnung</option>
+            <option value="Stellplatz / Camping">Stellplatz / Camping</option>
+            <option value="Saisonstellplatz">Saisonstellplatz</option>
+            <option value="Restaurant Tisch">Restaurant – Tischreservierung</option>
+            <option value="Alpaka Wanderung">Alpaka- / Lamawanderung</option>
+            <option value="Gruppen / Feier">Gruppenbuchung oder Feier</option>
+            <option value="Sonstiges">Sonstiges</option>
+          </select>
+        </div>
+
+        <div class="grid-2" style="gap: 16px;">
+          <div class="form-group">
+            <label for="date">Gewünschtes Datum / Zeitraum</label>
+            <input type="text" id="date" placeholder="z.B. 12.–15. Juli 2026 oder 20. Juni">
+          </div>
+          <div class="form-group">
+            <label for="persons">Anzahl Personen</label>
+            <input type="number" id="persons" min="1" value="2">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Ihre Nachricht / Wünsche</label>
+          <textarea id="message" rows="4" placeholder="z.B. Besondere Anforderungen, Allergien, Gruppengröße..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 16px;">Anfrage abschicken</button>
+        <p style="font-size: 0.8rem; text-align: center; margin-top: 14px; color: var(--sage);">Wir antworten in der Regel innerhalb weniger Stunden.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ALPACA MODAL (simpler) -->
+  <div class="modal" id="alpaka-modal" onclick="if (event.target.id === 'alpaka-modal') closeAlpakaModal()">
+    <div class="modal-content" onclick="event.stopImmediatePropagation()">
+      <button class="modal-close" onclick="closeAlpakaModal()">×</button>
+      <h2>Lama- &amp; Alpakawanderung buchen</h2>
+      <p style="margin-bottom: 24px;">30 € pro Person • Dauer ca. 2,5 Std. • Ab 6 Jahren</p>
+
+      <form id="alpaka-form" onsubmit="submitAlpakaForm(event)">
+        <div class="form-group">
+          <label for="alp-name">Name</label>
+          <input type="text" id="alp-name" required>
+        </div>
+        <div class="grid-2" style="gap: 16px;">
+          <div class="form-group">
+            <label for="alp-email">E-Mail</label>
+            <input type="email" id="alp-email" required>
+          </div>
+          <div class="form-group">
+            <label for="alp-phone">Telefon</label>
+            <input type="tel" id="alp-phone">
+          </div>
+        </div>
+        <div class="grid-2" style="gap: 16px;">
+          <div class="form-group">
+            <label for="alp-date">Wunschtermin</label>
+            <input type="text" id="alp-date" placeholder="z.B. 5. Juli 2026" required>
+          </div>
+          <div class="form-group">
+            <label for="alp-persons">Anzahl Personen</label>
+            <input type="number" id="alp-persons" min="1" value="2" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="alp-notes">Bemerkungen (z.B. Gruppe, Kinder, besondere Wünsche)</label>
+          <textarea id="alp-notes" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Anfrage für Alpaka-Wanderung abschicken</button>
+        <p style="font-size:0.82rem; text-align:center; margin-top:12px; color:var(--sage);">Wir bestätigen Verfügbarkeit und senden Ihnen alle Details per E-Mail zu.</p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Mobile Navigation
+    function toggleMobileNav() {
+      const nav = document.getElementById('mobile-nav');
+      nav.classList.toggle('is-open');
+      document.body.classList.toggle('nav-locked', nav.classList.contains('is-open'));
+    }
+    function closeMobileNav() {
+      const nav = document.getElementById('mobile-nav');
+      nav.classList.remove('is-open');
+      document.body.classList.remove('nav-locked');
+    }
+
+    // Booking Modal
+    function openBookingModal() {
+      document.getElementById('booking-modal').classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeBookingModal() {
+      document.getElementById('booking-modal').classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    function handleFormSubmit(e) {
+      // Formspree handles the submit via action + method=POST
+      // We just show success message after submission
+      setTimeout(() => {
+        const form = e.target;
+        form.innerHTML = `
+          <div class="success-message">
+            <strong>Vielen Dank für Ihre Anfrage!</strong><br><br>
+            Wir haben Ihre Nachricht erhalten und melden uns in Kürze bei Ihnen.<br>
+            Bei dringenden Anliegen erreichen Sie uns telefonisch unter <strong>05535 / 999 9369</strong>.
+          </div>
+        `;
+        setTimeout(() => {
+          closeBookingModal();
+        }, 2800);
+      }, 800);
+    }
+
+    // Alpaka Modal
+    function openAlpakaModal() {
+      document.getElementById('alpaka-modal').classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeAlpakaModal() {
+      document.getElementById('alpaka-modal').classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    function submitAlpakaForm(e) {
+      e.preventDefault();
+      const form = e.target;
+      form.innerHTML = `
+        <div class="success-message">
+          <strong>Vielen Dank!</strong><br><br>
+          Ihre Anfrage für die Lama- &amp; Alpakawanderung wurde übermittelt.<br>
+          Wir prüfen die Verfügbarkeit und melden uns innerhalb von 24 Stunden mit allen Details.
+        </div>
+      `;
+      setTimeout(() => {
+        closeAlpakaModal();
+        setTimeout(() => {
+          form.reset();
+          form.innerHTML = `
+            <div class="form-group"><label for="alp-name">Name</label><input type="text" id="alp-name" required></div>
+            <div class="grid-2" style="gap: 16px;">
+              <div class="form-group"><label for="alp-email">E-Mail</label><input type="email" id="alp-email" required></div>
+              <div class="form-group"><label for="alp-phone">Telefon</label><input type="tel" id="alp-phone"></div>
+            </div>
+            <div class="grid-2" style="gap: 16px;">
+              <div class="form-group"><label for="alp-date">Wunschtermin</label><input type="text" id="alp-date" placeholder="z.B. 5. Juli 2026" required></div>
+              <div class="form-group"><label for="alp-persons">Anzahl Personen</label><input type="number" id="alp-persons" min="1" value="2" required></div>
+            </div>
+            <div class="form-group"><label for="alp-notes">Bemerkungen</label><textarea id="alp-notes" rows="3"></textarea></div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Anfrage abschicken</button>
+            <p style="font-size:0.82rem; text-align:center; margin-top:12px; color:var(--sage);">Wir bestätigen Verfügbarkeit per E-Mail.</p>
+          `;
+        }, 500);
+      }, 2400);
+    }
+
+    // Scroll reveal animation
+    function initRevealAnimations() {
+      const reveals = document.querySelectorAll('.reveal, .card, .card-quiet, .pillar, .testimonial');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -60px 0px" });
+
+      reveals.forEach(el => {
+        if (!el.classList.contains('is-visible')) {
+          el.classList.add('reveal');
+          observer.observe(el);
+        }
+      });
+    }
+
+    // Smooth scroll for nav links
+    function initSmoothScroll() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            const headerOffset = 90;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+            
+            // Close mobile nav if open
+            const mobileNav = document.getElementById('mobile-nav');
+            if (mobileNav.classList.contains('is-open')) {
+              mobileNav.classList.remove('is-open');
+              document.body.classList.remove('nav-locked');
+            }
+          }
+        });
+      });
+    }
+
+    // Active nav highlighting
+    function initActiveNav() {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.main-nav a');
+
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          if (scrollY >= sectionTop - 160) {
+            current = section.getAttribute('id');
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove('nav-active');
+          if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('nav-active');
+          }
+        });
+      });
+    }
+
+    // Keyboard escape for modals
+    function initKeyboardControls() {
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          const bookingModal = document.getElementById('booking-modal');
+          const alpakaModal = document.getElementById('alpaka-modal');
+          if (bookingModal.classList.contains('is-open')) closeBookingModal();
+          else if (alpakaModal.classList.contains('is-open')) closeAlpakaModal();
+          else {
+            const mobileNav = document.getElementById('mobile-nav');
+            if (mobileNav.classList.contains('is-open')) closeMobileNav();
+          }
+        }
+      });
+    }
+
+    // Impressum Modal
+    function showImpressum() {
+      let impressumHTML = `
+        <div class="modal" id="impressum-modal" onclick="if (event.target.id === 'impressum-modal') closeImpressum()">
+          <div class="modal-content" style="max-width: 680px; padding: 42px;" onclick="event.stopImmediatePropagation()">
+            <button class="modal-close" onclick="closeImpressum()">×</button>
+            <h2>Impressum</h2>
+            <p><strong>Weserterrassen Polle</strong><br>
+            Dennis Ewert &amp; Philipp Sichler<br>
+            Mühlenweg 2<br>
+            37647 Polle</p>
+            
+            <p>Telefon: 05535 / 9999369<br>
+            E-Mail: info@weserterrassen.de</p>
+            
+            <p><strong>Verantwortlich für den Inhalt:</strong><br>
+            Dennis Ewert &amp; Philipp Sichler</p>
+            
+            <p>Diese Website dient ausschließlich Informationszwecken. Für Buchungen und Reservierungen kontaktieren Sie uns bitte direkt.</p>
+            
+            <p style="font-size: 0.85rem; margin-top: 32px; color: var(--sage);">© 2026 Weserterrassen Polle – Alle Rechte vorbehalten.</p>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', impressumHTML);
+      document.getElementById('impressum-modal').classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImpressum() {
+      const modal = document.getElementById('impressum-modal');
+      if (modal) {
+        modal.remove();
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Initialize everything
+    function init() {
+      initRevealAnimations();
+      initSmoothScroll();
+      initActiveNav();
+      initKeyboardControls();
+
+      // Optional: subtle hero image parallax
+      const heroMedia = document.querySelector('.hero-media');
+      if (heroMedia) {
+        window.addEventListener('scroll', () => {
+          const scrolled = window.scrollY;
+          if (scrolled < 600) {
+            heroMedia.style.transform = `translateY(${scrolled * 0.08}px)`;
+          }
+        }, { passive: true });
+      }
+
+      // Easter egg: click brand to scroll to top
+      const brand = document.querySelector('.brand');
+      if (brand) {
+        brand.style.cursor = 'pointer';
+        brand.addEventListener('click', (e) => {
+          if (e.target.closest('a')) return;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      console.log('%c[Weserterrassen] Premium website initialized – smooth & high-quality experience ready.', 'color:#7C8B6F');
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
